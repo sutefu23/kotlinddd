@@ -1,0 +1,26 @@
+version: "3.4"
+services:
+  db:
+    build:
+      context: .
+      dockerfile: ./docker/mysql/Dockerfile
+    ports:
+      - ${DB_PORT:-3306}:3306
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASS}
+      - MYSQL_ROOT_PASSWORD=${DB_PASS}
+      - TZ=Asia/Tokyo
+  pma:
+    image: phpmyadmin/phpmyadmin:5.0.2
+    environment:
+      - PMA_HOST=${DB_HOST}
+      - PMA_USER=${DB_USER}
+      - PMA_PASSWORD=${DB_PASS}
+    ports:
+      - 8080:80
+    volumes:
+      - ./docker/pma/sessions:/sessions

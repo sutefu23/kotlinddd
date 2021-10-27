@@ -1,0 +1,10 @@
+.idea
+/docker/mysql/data
+/docker/pma/session
+.gradle
+*.class
+compileKotlin
+compileTestKotlin
+binary
+*.http
+.env
